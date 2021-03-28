@@ -62,8 +62,8 @@
           <li><a href="#about"><i class="bx bx-user"></i> <span>About</span></a></li>
           <li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
           <li><a href="#portfolio"><i class="bx bx-book-content"></i> Portfolio</a></li>
-		  <li><a href="#services"><i class="bx bx-envelope"></i> Word Cloud</a></li>
-          <li><a href="#services"><i></i></a></li>
+		  <li><a href="#services"><i class="bx bx-envelope"></i> Word Cloud</a></li>		  
+          <li><a onclick="showOrgView();"><i class="bx bx-pulse"></i>Tree of Resume</a></li>
           
 
         </ul>
@@ -827,6 +827,38 @@
 
       </div>
     </section><!-- End Contact Section -->
+	
+	<div class="modal fade" id="orgTreeModal" tabindex="-1" role="dialog" aria-labelledby="orgTreeModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orgTreeModalTitle">Hierarchical View</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">                                
+                                <div class="card-body">
+									<div class="alert alert-secondary " role="alert" id="NoteForOrg" style="display:none">
+										<button type="button" class="close alert-dismissible" onclick="resetNote()" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<div id="clickNoteOrg"></div>
+									</div>
+                                    <div class="card-body panel-refresh">
+                                        <div id="treeView" style="min-height:800px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                  
+                </div>
+            </div>
+        </div>
+    </div>
 
   </main><!-- End #main -->
 
@@ -860,9 +892,338 @@
   <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  
+  <script>
+   function showOrgView(){
+   debugger;
+		$('#orgTreeModal').modal('show');
+		$('#NoteForOrg').show();
+		$('#clickNoteOrg').html('Click on each dot of tree to know more about me');
+		setTimeout(function(){
+			drawOrgTree();
+		}, 300)
+   }
+   
+	function resetNote(){
+		$('#NoteForOrg').hide();
+	}
+   
+
+   var treeData = {
+	"name":"Raj Chanpura",
+	"children":[
+		{
+			"name": "Technical skills",
+			"children" : [
+				{
+					"name":"Languages",
+					"children":[
+						{"name":"C#"},
+						{"name":"Java"},
+						{"name":"Python"},
+						{"name":"C++"}
+					]	
+				},
+				{
+					"name":"Frameworks",
+					"children":[
+						{"name":"ASP.NET"},
+						{"name":"Spring Boot"},
+						{"name":"Django"},
+						{"name":"Spring MVC"}
+					]
+				},
+				{
+					"name":"Databases",
+					"children":[
+						{"name":"SQL Server"},
+						{"name":"MySQL"},
+						{"name":"MongoDB"}
+					]
+				},
+				{
+					"name":"Web Technologies",
+					"children":[
+						{"name":"HTML5"},
+						{"name":"JavaScript"},
+						{"name":"CSS3"},
+						{"name":"jQuery"},
+						{"name":"Bootstrap"}
+					]
+				},
+				{
+					"name":"Software Tools",
+					"children":[
+						{"name":"Visual Studio"},
+						{"name":"Eclipse"},
+						{"name":"PyCharm"},
+						{"name":"VS Code"},
+						{"name":"Jupyter"},
+						{"name":"Intellij IDEA"}
+					]
+				},
+				{
+					"name":"Operating Systems",
+					"children":[
+						{"name":"Windows"},
+						{"name":"Linux"},
+						{"name":"MacOS"}
+					]
+				},
+				{
+					"name":"Version Control",
+					"children":[
+						{"name":"GitHub"},
+						{"name":"GitLab"},
+						{"name":"Bitbucket"}
+					]
+				},
+				{
+					"name":"Other Systems",
+					"children":[
+						{"name":"Jenkins"},
+						{"name":"Docker"},
+						{"name":"Appdynamics"},
+						{"name":"Azure"},
+						{"name":"jUnit"}
+					]
+				}
+			]
+		},
+		{
+			"name":"Education",
+			"children" : [
+				{
+					"name":"Bachelors in Computer Engineering",
+					"children":[
+						{"name":"SVIT, India(Aug 2014-May 2018)"}
+					]
+				},
+				{
+					"name":"Master in Applied Computing",
+					"children":[
+						{"name":"University of Windsor, ON(Sep 2019-Dec 2020)"}
+					]
+				}
+				
+			]
+		},
+		{
+			"name":"Experience",
+			"children" : [
+				{
+					"name":"Ceridian, Canada",
+					"children":[
+						{
+							"name":"Software Developer Co-op Intern(Sep 2020-Present)",
+							"children":[
+								{
+									"name":"Technical Stack",
+									"children" : [
+										{"name":"C#"},
+										{"name":"ASP .NET"},
+										{"name":"JavaScript"},
+										{"name":"MS SQL"}				
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name":"Navaera Software",
+					"children":[
+						{
+							"name":"Associate Software Developer",
+							"children":[
+								{
+									"name":"Technical Stack",
+									"children" : [
+										{"name":"Java"},
+										{"name":"Spring Boot"},
+										{"name":"Hibernate"},
+										{"name":"JPA"},
+										{"name":"JavaScript"}
+									]
+								}
+							]
+						}
+					]
+				}
+				
+				
+			]			
+		},
+		{
+			"name":"Project",
+			"children" : [
+				{
+					"name":"Insure",
+					"children":[
+						{
+							"name":"Used technology",
+							"children" : [
+								{"name":"MVC .NET"},
+								{"name":"MS SQL"},
+								{"name":"jQuery"},
+								{"name":"JavaScript"},
+								{"name":"GitHub"}
+							]
+						}
+					]
+				},
+				{
+					"name":"ELibrary",
+					"children":[
+						{
+							"name":"Used technology",
+							"children" : [
+								{"name":"Java"},
+								{"name":"React"},
+								{"name":"SpringBoot"},
+								{"name":"Maven"},
+								{"name":"Bootstrap"},
+								{"name":"MySQL"}
+							]
+						}
+					]
+				},
+				{
+					"name":"SaveNotes",
+					"children":[
+						{
+							"name":"Used technology",
+							"children" : [
+								{"name":"Angular"},
+								{"name":"HTML"},
+								{"name":"SpringBoot"},
+								{"name":"CSS"},
+								{"name":"H2Database"}
+							]
+						}
+					]
+				},
+				{
+					"name":"Web Search Engine",
+					"children":[
+						{
+							"name":"Used technology",
+							"children" : [
+								{"name":"Python"},
+								{"name":"HTML"},
+								{"name":"Jsoup"},
+								{"name":"Eclipse"}
+							]
+						}
+					]
+				},
+				{
+					"name":"DiceGame",
+					"children":[
+						{
+							"name":"Used technology",
+							"children" : [
+								{"name":"C"},
+								{"name":"Multithreading"},
+								{"name":"Socket concepts"}
+							]
+						}
+					]
+				}
+			]
+			
+		},	
+		{
+			"name":"Extra-curricular",
+			"children":[
+				{"name":"Mentor at Winhacks"},
+				{"name":"Attended GDG"},
+				{"name":"Involved in FoodBank"}				
+			]
+		},
+		{
+			"name":"Contact Me",
+			"children":[
+				{"name":"chanpuraraj@gmail.com"},
+				{"name":"+1 519-995-2317"}			
+			]
+		}
+	]
+
+}
+
+
+
+
+	
+
+   var _treeCharts;
+   function drawOrgTree()
+   {
+		if (typeof _treeCharts !== 'undefined') {
+        _treeCharts.dispose();
+		}
+		
+		var binding = 'treeView';
+		_treeCharts = echarts.init(document.getElementById(binding));
+
+		treeData.children.forEach(function (datum, index) {
+				index % 1 === 0 && (datum.collapsed = true);
+			});
+
+		_treeCharts.setOption(option = {
+                tooltip: {
+                    trigger: 'item',
+                    triggerOn: 'mousemove'
+                },
+                series: [
+                    {
+                        type: 'tree',
+                        data: [treeData],
+                        left: '2%',
+                        right: '2%',
+                        top: '15%',
+                        bottom: '20%',
+
+                        symbol: 'emptyCircle',
+
+                        orient: 'vertical',
+
+                        expandAndCollapse: true,
+
+
+                        label: {
+                            position: 'top',
+                            rotate: 0,
+                            verticalAlign: 'middle',
+                            align: 'right',
+                            fontSize: 12
+                        },
+
+                        leaves: {
+                            label: {
+                                position: 'bottom',
+                                rotate: -90,
+                                verticalAlign: 'middle',
+                                align: 'left'
+                            }
+                        },
+                        dataZoom: [
+                            {
+                                type: 'inside'
+                            }
+                        ],
+                        animationDurationUpdate: 750
+                    }
+                ]
+            });
+		
+   }
+  </script>
 
 </body>
 
